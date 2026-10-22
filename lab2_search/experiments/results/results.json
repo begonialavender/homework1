@@ -1,0 +1,418 @@
+{
+  "maze": [
+    {
+      "map": "题目样例 5x5",
+      "h0_expanded": 17,
+      "h0_generated": 17,
+      "h0_time_ms": 0.053,
+      "manhattan_expanded": 14,
+      "manhattan_generated": 16,
+      "manhattan_time_ms": 0.064,
+      "cost_h0": 7,
+      "cost_manhattan": 7,
+      "steps": 7,
+      "expanded_ratio": 0.8235
+    },
+    {
+      "map": "随机 10x10 密度0.20",
+      "h0_expanded": 65,
+      "h0_generated": 68,
+      "h0_time_ms": 0.219,
+      "manhattan_expanded": 22,
+      "manhattan_generated": 39,
+      "manhattan_time_ms": 0.138,
+      "cost_h0": 18,
+      "cost_manhattan": 18,
+      "steps": 18,
+      "expanded_ratio": 0.3385
+    },
+    {
+      "map": "随机 20x20 密度0.20",
+      "h0_expanded": 329,
+      "h0_generated": 328,
+      "h0_time_ms": 1.112,
+      "manhattan_expanded": 57,
+      "manhattan_generated": 101,
+      "manhattan_time_ms": 0.37,
+      "cost_h0": 38,
+      "cost_manhattan": 38,
+      "steps": 38,
+      "expanded_ratio": 0.1733
+    },
+    {
+      "map": "随机 20x20 密度0.30",
+      "h0_expanded": 274,
+      "h0_generated": 274,
+      "h0_time_ms": 0.924,
+      "manhattan_expanded": 115,
+      "manhattan_generated": 162,
+      "manhattan_time_ms": 1.129,
+      "cost_h0": 40,
+      "cost_manhattan": 40,
+      "steps": 40,
+      "expanded_ratio": 0.4197
+    },
+    {
+      "map": "随机 40x40 密度0.25",
+      "h0_expanded": 1151,
+      "h0_generated": 1150,
+      "h0_time_ms": 4.151,
+      "manhattan_expanded": 126,
+      "manhattan_generated": 210,
+      "manhattan_time_ms": 0.886,
+      "cost_h0": 78,
+      "cost_manhattan": 78,
+      "steps": 78,
+      "expanded_ratio": 0.1095
+    }
+  ],
+  "weighted": {
+    "rows": [
+      {
+        "map": "题目样例 5x5",
+        "optimal_cost": 7,
+        "h0_expanded": 15,
+        "manhattan_cost": 7,
+        "manhattan_expanded": 9,
+        "manhattan_time_ms": 0.06,
+        "w3_cost": 7,
+        "w3_expanded": 9,
+        "w3_optimal": true,
+        "expanded_ratio": 0.6
+      },
+      {
+        "map": "随机 10x10 密度0.15",
+        "optimal_cost": 54,
+        "h0_expanded": 60,
+        "manhattan_cost": 54,
+        "manhattan_expanded": 52,
+        "manhattan_time_ms": 0.265,
+        "w3_cost": 54,
+        "w3_expanded": 46,
+        "w3_optimal": true,
+        "expanded_ratio": 0.8667
+      },
+      {
+        "map": "随机 20x20 密度0.20",
+        "optimal_cost": 128,
+        "h0_expanded": 313,
+        "manhattan_cost": 128,
+        "manhattan_expanded": 304,
+        "manhattan_time_ms": 1.553,
+        "w3_cost": 128,
+        "w3_expanded": 205,
+        "w3_optimal": true,
+        "expanded_ratio": 0.9712
+      },
+      {
+        "map": "随机 30x30 密度0.20",
+        "optimal_cost": 186,
+        "h0_expanded": 659,
+        "manhattan_cost": 186,
+        "manhattan_expanded": 636,
+        "manhattan_time_ms": 3.495,
+        "w3_cost": 186,
+        "w3_expanded": 322,
+        "w3_optimal": true,
+        "expanded_ratio": 0.9651
+      }
+    ],
+    "w3_study": {
+      "maps": 30,
+      "suboptimal_maps": 4,
+      "suboptimal_rate": 0.133,
+      "avg_expanded_reduction": 0.689
+    }
+  },
+  "game_tree": {
+    "sample": {
+      "value": 5,
+      "mm_visits": 15,
+      "ab_visits": 14,
+      "cutoffs": 2,
+      "same_value": true
+    },
+    "sample_best_order": {
+      "value": 5,
+      "mm_visits": 15,
+      "ab_visits": 11,
+      "cutoffs": 2,
+      "same_value": true
+    },
+    "sample_worst_order": {
+      "value": 5,
+      "mm_visits": 15,
+      "ab_visits": 15,
+      "cutoffs": 0,
+      "same_value": true
+    },
+    "rows": [
+      {
+        "branching": 2,
+        "depth": 3,
+        "leaves": 8,
+        "mm_visits": 15,
+        "ab_visits": 13.8,
+        "ab_best_order": 11,
+        "ab_worst_order": 15,
+        "cutoffs": 1.3,
+        "reduction": 0.08
+      },
+      {
+        "branching": 3,
+        "depth": 3,
+        "leaves": 27,
+        "mm_visits": 40,
+        "ab_visits": 30.6,
+        "ab_best_order": 20,
+        "ab_worst_order": 40,
+        "cutoffs": 3.5,
+        "reduction": 0.234
+      },
+      {
+        "branching": 4,
+        "depth": 3,
+        "leaves": 64,
+        "mm_visits": 85,
+        "ab_visits": 57.0,
+        "ab_best_order": 31,
+        "ab_worst_order": 85,
+        "cutoffs": 6.7,
+        "reduction": 0.33
+      },
+      {
+        "branching": 2,
+        "depth": 4,
+        "leaves": 16,
+        "mm_visits": 31,
+        "ab_visits": 26,
+        "ab_best_order": 18,
+        "ab_worst_order": 30.8,
+        "cutoffs": 3.5,
+        "reduction": 0.161
+      },
+      {
+        "branching": 3,
+        "depth": 4,
+        "leaves": 81,
+        "mm_visits": 121,
+        "ab_visits": 79.3,
+        "ab_best_order": 37,
+        "ab_worst_order": 118.8,
+        "cutoffs": 14.2,
+        "reduction": 0.345
+      },
+      {
+        "branching": 2,
+        "depth": 5,
+        "leaves": 32,
+        "mm_visits": 63,
+        "ab_visits": 48.5,
+        "ab_best_order": 29,
+        "ab_worst_order": 61.4,
+        "cutoffs": 7.3,
+        "reduction": 0.23
+      }
+    ]
+  },
+  "treasure": {
+    "names": [
+      "A",
+      "B",
+      "T1",
+      "T2",
+      "T3",
+      "T4"
+    ],
+    "matrix": [
+      [
+        0,
+        12,
+        10,
+        4,
+        8,
+        8
+      ],
+      [
+        12,
+        0,
+        8,
+        8,
+        4,
+        10
+      ],
+      [
+        10,
+        8,
+        0,
+        6,
+        6,
+        12
+      ],
+      [
+        4,
+        8,
+        6,
+        0,
+        6,
+        6
+      ],
+      [
+        8,
+        4,
+        6,
+        6,
+        0,
+        6
+      ],
+      [
+        8,
+        10,
+        12,
+        6,
+        6,
+        0
+      ]
+    ],
+    "depth_rows": [
+      {
+        "depth": 1,
+        "minimax_target": "T2",
+        "minimax_value": 2,
+        "minimax_nodes": 5,
+        "minimax_cutoffs": 0,
+        "alpha-beta_target": "T2",
+        "alpha-beta_value": 2,
+        "alpha-beta_nodes": 5,
+        "alpha-beta_cutoffs": 0,
+        "reduction": 0.0
+      },
+      {
+        "depth": 2,
+        "minimax_target": "T2",
+        "minimax_value": -1,
+        "minimax_nodes": 17,
+        "minimax_cutoffs": 0,
+        "alpha-beta_target": "T2",
+        "alpha-beta_value": -1,
+        "alpha-beta_nodes": 13,
+        "alpha-beta_cutoffs": 2,
+        "reduction": 0.235
+      },
+      {
+        "depth": 3,
+        "minimax_target": "T2",
+        "minimax_value": 2,
+        "minimax_nodes": 41,
+        "minimax_cutoffs": 0,
+        "alpha-beta_target": "T2",
+        "alpha-beta_value": 2,
+        "alpha-beta_nodes": 26,
+        "alpha-beta_cutoffs": 5,
+        "reduction": 0.366
+      },
+      {
+        "depth": 4,
+        "minimax_target": "T3",
+        "minimax_value": 3,
+        "minimax_nodes": 65,
+        "minimax_cutoffs": 0,
+        "alpha-beta_target": "T3",
+        "alpha-beta_value": 3,
+        "alpha-beta_nodes": 47,
+        "alpha-beta_cutoffs": 12,
+        "reduction": 0.277
+      }
+    ],
+    "order_rows": [
+      {
+        "depth": 2,
+        "order": "natural",
+        "mm_target": "T2",
+        "mm_value": -1,
+        "mm_nodes": 17,
+        "ab_target": "T2",
+        "ab_value": -1,
+        "ab_nodes": 13,
+        "ab_cutoffs": 2
+      },
+      {
+        "depth": 2,
+        "order": "value_desc",
+        "mm_target": "T2",
+        "mm_value": -1,
+        "mm_nodes": 17,
+        "ab_target": "T2",
+        "ab_value": -1,
+        "ab_nodes": 15,
+        "ab_cutoffs": 1
+      },
+      {
+        "depth": 2,
+        "order": "gain_desc",
+        "mm_target": "T2",
+        "mm_value": -1,
+        "mm_nodes": 17,
+        "ab_target": "T2",
+        "ab_value": -1,
+        "ab_nodes": 11,
+        "ab_cutoffs": 3
+      },
+      {
+        "depth": 2,
+        "order": "distance_asc",
+        "mm_target": "T2",
+        "mm_value": -1,
+        "mm_nodes": 17,
+        "ab_target": "T2",
+        "ab_value": -1,
+        "ab_nodes": 11,
+        "ab_cutoffs": 3
+      },
+      {
+        "depth": 4,
+        "order": "natural",
+        "mm_target": "T3",
+        "mm_value": 3,
+        "mm_nodes": 65,
+        "ab_target": "T3",
+        "ab_value": 3,
+        "ab_nodes": 47,
+        "ab_cutoffs": 12
+      },
+      {
+        "depth": 4,
+        "order": "value_desc",
+        "mm_target": "T3",
+        "mm_value": 3,
+        "mm_nodes": 65,
+        "ab_target": "T3",
+        "ab_value": 3,
+        "ab_nodes": 42,
+        "ab_cutoffs": 11
+      },
+      {
+        "depth": 4,
+        "order": "gain_desc",
+        "mm_target": "T3",
+        "mm_value": 3,
+        "mm_nodes": 65,
+        "ab_target": "T3",
+        "ab_value": 3,
+        "ab_nodes": 37,
+        "ab_cutoffs": 12
+      },
+      {
+        "depth": 4,
+        "order": "distance_asc",
+        "mm_target": "T3",
+        "mm_value": 3,
+        "mm_nodes": 65,
+        "ab_target": "T3",
+        "ab_value": 3,
+        "ab_nodes": 37,
+        "ab_cutoffs": 12
+      }
+    ]
+  }
+}

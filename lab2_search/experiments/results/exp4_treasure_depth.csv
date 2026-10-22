@@ -1,0 +1,5 @@
+﻿depth,minimax_target,minimax_value,minimax_nodes,minimax_cutoffs,alpha-beta_target,alpha-beta_value,alpha-beta_nodes,alpha-beta_cutoffs,reduction
+1,T2,2,5,0,T2,2,5,0,0.0
+2,T2,-1,17,0,T2,-1,13,2,0.235
+3,T2,2,41,0,T2,2,26,5,0.366
+4,T3,3,65,0,T3,3,47,12,0.277

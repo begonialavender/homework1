@@ -1,0 +1,5 @@
+﻿map,optimal_cost,h0_expanded,manhattan_cost,manhattan_expanded,manhattan_time_ms,w3_cost,w3_expanded,w3_optimal,expanded_ratio
+题目样例 5x5,7,15,7,9,0.06,7,9,True,0.6
+随机 10x10 密度0.15,54,60,54,52,0.265,54,46,True,0.8667
+随机 20x20 密度0.20,128,313,128,304,1.553,128,205,True,0.9712
+随机 30x30 密度0.20,186,659,186,636,3.495,186,322,True,0.9651

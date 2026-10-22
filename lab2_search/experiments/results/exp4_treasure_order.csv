@@ -1,0 +1,9 @@
+﻿depth,order,mm_target,mm_value,mm_nodes,ab_target,ab_value,ab_nodes,ab_cutoffs
+2,natural,T2,-1,17,T2,-1,13,2
+2,value_desc,T2,-1,17,T2,-1,15,1
+2,gain_desc,T2,-1,17,T2,-1,11,3
+2,distance_asc,T2,-1,17,T2,-1,11,3
+4,natural,T3,3,65,T3,3,47,12
+4,value_desc,T3,3,65,T3,3,42,11
+4,gain_desc,T3,3,65,T3,3,37,12
+4,distance_asc,T3,3,65,T3,3,37,12
