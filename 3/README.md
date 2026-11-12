@@ -132,23 +132,21 @@ python scripts/summarize_results.py
 
 ## 生成 Word / PDF 版报告
 
-`report/实验报告.pdf` 是提交用的正式版（5 页），`report/实验报告_详细版.pdf` 是内容更完整的
-参考版（17 页）。修改 Markdown 后重新生成：
+一条命令完成 Markdown → Word → PDF，并自动把 PDF 复制到作业文件夹根目录：
 
-```bash
-pandoc report/实验报告.md -f gfm -t docx -o report/实验报告.docx --resource-path=.
-python scripts/make_report_docx.py report/实验报告.docx --compact
+```powershell
+.\build_report.ps1
 ```
 
-其中 pandoc 负责结构转换，`make_report_docx.py` 负责中文字体、页边距、首行缩进、
-表格边框、页码和图片尺寸等排版；`--compact` 是紧凑版式（9.5pt 正文、窄边距），
-去掉该参数即恢复常规版式。
+生成 17 页的详细版（不复制到根目录）：
 
-导出 PDF（需要本机装有 Word）：
-
-```bash
-powershell -Command "$w=New-Object -ComObject Word.Application; $d=$w.Documents.Open('report/实验报告.docx'); $d.SaveAs('report/实验报告.pdf',17); $d.Close(); $w.Quit()"
+```powershell
+.\build_report.ps1 -Detailed
 ```
+
+脚本内部依次调用 pandoc（结构转换）、`make_report_docx.py`（中文字体、页边距、首行缩进、
+表格边框、页码、图片尺寸）和 Word 导出 PDF；`--compact` 紧凑版式用于 5 页限制，
+生成后页数超过 5 会给出警告。
 
 ## 复现性说明
 
