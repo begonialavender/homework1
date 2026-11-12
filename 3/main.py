@@ -147,13 +147,13 @@ def cmd_gradcam(args) -> None:
             if label not in seen:
                 seen.add(label)
                 indices.append(i)
-            if len(indices) == 6:
+            if len(indices) == args.count:
                 break
     images = torch.stack([test_set[i][0] for i in indices])
     labels = torch.tensor([test_set[i][1] for i in indices])
 
     plot_gradcam(model, ckpt["model"], images, labels, device,
-                 out_dir / "gradcam.png", n=len(indices))
+                 out_dir / args.name, n=len(indices))
 
 
 def cmd_compare(args) -> None:
@@ -208,6 +208,8 @@ def build_parser() -> argparse.ArgumentParser:
     p_cam.add_argument("--out", default=None)
     p_cam.add_argument("--indices", type=int, nargs="+", default=None,
                        help="测试集中的样本下标")
+    p_cam.add_argument("--count", type=int, default=6, help="默认每类取一张时总共取几张")
+    p_cam.add_argument("--name", default="gradcam.png", help="输出文件名")
     p_cam.set_defaults(func=cmd_gradcam)
 
     p_cmp = sub.add_parser("compare", help="对比多个实验的验证曲线")

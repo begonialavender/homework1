@@ -43,9 +43,10 @@ cifar10-assignment/
 │   └── gradcam.py          # Grad-CAM 可解释性分析
 ├── runs/                   # 训练产物：权重、history.json、图表
 ├── report/
-│   ├── 实验报告.md          # 实验报告（Markdown 源文件）
-│   ├── 实验报告.docx        # 实验报告（Word 版，可直接提交）
-│   └── 实验报告.pdf         # 实验报告（PDF 版）
+│   ├── 实验报告.md          # 实验报告源文件（5 页精简版）
+│   ├── 实验报告.docx        # Word 版
+│   ├── 实验报告.pdf         # PDF 版（提交用）
+│   ├── 实验报告_详细版.*    # 内容更完整的 17 页版本，供参考
 ├── scripts/                # 数据集下载/转换、结果汇总、报告排版等辅助脚本
 └── data/                   # CIFAR-10 数据集（自动下载）
 ```
@@ -131,15 +132,23 @@ python scripts/summarize_results.py
 
 ## 生成 Word / PDF 版报告
 
-`report/实验报告.docx` 与 `report/实验报告.pdf` 已生成。修改 Markdown 后重新生成：
+`report/实验报告.pdf` 是提交用的正式版（5 页），`report/实验报告_详细版.pdf` 是内容更完整的
+参考版（17 页）。修改 Markdown 后重新生成：
 
 ```bash
 pandoc report/实验报告.md -f gfm -t docx -o report/实验报告.docx --resource-path=.
-python scripts/make_report_docx.py report/实验报告.docx
+python scripts/make_report_docx.py report/实验报告.docx --compact
 ```
 
 其中 pandoc 负责结构转换，`make_report_docx.py` 负责中文字体、页边距、首行缩进、
-表格边框、页码和图片尺寸等排版。
+表格边框、页码和图片尺寸等排版；`--compact` 是紧凑版式（9.5pt 正文、窄边距），
+去掉该参数即恢复常规版式。
+
+导出 PDF（需要本机装有 Word）：
+
+```bash
+powershell -Command "$w=New-Object -ComObject Word.Application; $d=$w.Documents.Open('report/实验报告.docx'); $d.SaveAs('report/实验报告.pdf',17); $d.Close(); $w.Quit()"
+```
 
 ## 复现性说明
 

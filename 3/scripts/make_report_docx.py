@@ -2,11 +2,14 @@
 
 pandoc 只负责结构转换，这里补上中文字体、页边距、首行缩进、图片宽度和表格边框。
 
-用法：python scripts/make_report_docx.py report/实验报告.docx
+用法：
+    python scripts/make_report_docx.py report/实验报告.docx            # 常规版式
+    python scripts/make_report_docx.py report/实验报告.docx --compact   # 紧凑版式（限页数时用）
 """
 
 from __future__ import annotations
 
+import argparse
 import sys
 from pathlib import Path
 
@@ -21,9 +24,20 @@ BODY_ASCII = "Times New Roman"
 BODY_CJK = "宋体"
 HEAD_CJK = "黑体"
 CODE_FONT = "Consolas"
-MAX_IMAGE_WIDTH = Cm(15.5)
-# 版心高度约 24.9cm，留出题注空间，太高的图必须按高度缩放否则会溢出到下一页
-MAX_IMAGE_HEIGHT = Cm(20.5)
+
+# 两种版式：常规版适合详细报告，紧凑版用于限页数的提交件
+LAYOUTS = {
+    "normal": dict(
+        body_size=10.5, line_spacing=1.4, indent=21,
+        margins=(2.6, 2.4), heads={"Heading 1": 16, "Heading 2": 14, "Heading 3": 12, "Heading 4": 11},
+        table_size=9, img_w=15.5, img_h=20.5, para_space=(12, 6),
+    ),
+    "compact": dict(
+        body_size=9.5, line_spacing=1.15, indent=19,
+        margins=(1.9, 1.7), heads={"Heading 1": 14, "Heading 2": 11.5, "Heading 3": 10, "Heading 4": 9.5},
+        table_size=8, img_w=17.2, img_h=9.5, para_space=(7, 3),
+    ),
+}
 
 
 def set_style_font(style, ascii_font: str, cjk_font: str, size: float | None = None,
@@ -91,44 +105,50 @@ def add_page_number_footer(section) -> None:
 
 
 def main() -> None:
-    path = Path(sys.argv[1] if len(sys.argv) > 1 else "report/实验报告.docx")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("path", nargs="?", default="report/实验报告.docx")
+    parser.add_argument("--compact", action="store_true", help="紧凑版式，用于限制页数的提交件")
+    args = parser.parse_args()
+
+    path = Path(args.path)
+    cfg = LAYOUTS["compact" if args.compact else "normal"]
     doc = Document(path)
 
     section = doc.sections[0]
     section.page_width, section.page_height = Cm(21), Cm(29.7)
-    section.left_margin = section.right_margin = Cm(2.6)
-    section.top_margin = section.bottom_margin = Cm(2.4)
+    section.left_margin = section.right_margin = Cm(cfg["margins"][0])
+    section.top_margin = section.bottom_margin = Cm(cfg["margins"][1])
 
     # 正文
     for name in ("Normal", "Body Text", "First Paragraph"):
         if name in doc.styles:
             style = doc.styles[name]
-            set_style_font(style, BODY_ASCII, BODY_CJK, size=10.5)
-            style.paragraph_format.line_spacing = 1.4
+            set_style_font(style, BODY_ASCII, BODY_CJK, size=cfg["body_size"])
+            style.paragraph_format.line_spacing = cfg["line_spacing"]
     for name in ("Body Text", "First Paragraph"):
         if name in doc.styles:
-            doc.styles[name].paragraph_format.first_line_indent = Pt(21)
+            doc.styles[name].paragraph_format.first_line_indent = Pt(cfg["indent"])
 
     # 标题
     heading_specs = {
-        "Heading 1": (16, True, RGBColor(0, 0, 0)),
-        "Heading 2": (14, True, RGBColor(0x1F, 0x38, 0x64)),
-        "Heading 3": (12, True, RGBColor(0x2F, 0x5D, 0x8A)),
-        "Heading 4": (11, True, RGBColor(0x33, 0x33, 0x33)),
+        "Heading 1": (RGBColor(0, 0, 0)),
+        "Heading 2": (RGBColor(0x1F, 0x38, 0x64)),
+        "Heading 3": (RGBColor(0x2F, 0x5D, 0x8A)),
+        "Heading 4": (RGBColor(0x33, 0x33, 0x33)),
     }
-    for name, (size, bold, color) in heading_specs.items():
+    for name, color in heading_specs.items():
         if name in doc.styles:
             style = doc.styles[name]
-            set_style_font(style, BODY_ASCII, HEAD_CJK, size=size, bold=bold, color=color)
-            style.paragraph_format.space_before = Pt(12)
-            style.paragraph_format.space_after = Pt(6)
+            set_style_font(style, BODY_ASCII, HEAD_CJK, size=cfg["heads"][name], bold=True, color=color)
+            style.paragraph_format.space_before = Pt(cfg["para_space"][0])
+            style.paragraph_format.space_after = Pt(cfg["para_space"][1])
             style.paragraph_format.first_line_indent = Pt(0)
 
     # 代码块
     for name in ("Source Code", "Verbatim Char", "Compact"):
         if name in doc.styles:
             style = doc.styles[name]
-            set_style_font(style, CODE_FONT, BODY_CJK, size=9)
+            set_style_font(style, CODE_FONT, BODY_CJK, size=cfg["body_size"] - 0.5)
             if hasattr(style, "paragraph_format"):
                 style.paragraph_format.first_line_indent = Pt(0)
 
@@ -136,16 +156,17 @@ def main() -> None:
     for para in doc.paragraphs:
         if para.style.name.startswith("List") or para.style.name == "Compact":
             para.paragraph_format.first_line_indent = None
-            para.paragraph_format.left_indent = Cm(1.0)
-            para.paragraph_format.first_line_indent = Cm(-0.6)
+            para.paragraph_format.left_indent = Cm(0.85)
+            para.paragraph_format.first_line_indent = Cm(-0.5)
 
     # 图片宽度/高度都限制在版心内
+    max_w, max_h = Cm(cfg["img_w"]), Cm(cfg["img_h"])
     for shape in doc.inline_shapes:
         scale = 1.0
-        if shape.width > MAX_IMAGE_WIDTH:
-            scale = min(scale, MAX_IMAGE_WIDTH / shape.width)
-        if shape.height > MAX_IMAGE_HEIGHT:
-            scale = min(scale, MAX_IMAGE_HEIGHT / shape.height)
+        if shape.width > max_w:
+            scale = min(scale, max_w / shape.width)
+        if shape.height > max_h:
+            scale = min(scale, max_h / shape.height)
         if scale < 1.0:
             shape.width = int(shape.width * scale)
             shape.height = int(shape.height * scale)
@@ -164,16 +185,18 @@ def main() -> None:
             shade_cell(cell)
             for para in cell.paragraphs:
                 para.paragraph_format.first_line_indent = Pt(0)
+                para.paragraph_format.line_spacing = 1.0
                 para.alignment = WD_ALIGN_PARAGRAPH.CENTER
                 for run in para.runs:
                     run.font.bold = True
-                    run.font.size = Pt(9)
+                    run.font.size = Pt(cfg["table_size"])
         for row in table.rows[1:]:
             for cell in row.cells:
                 for para in cell.paragraphs:
                     para.paragraph_format.first_line_indent = Pt(0)
+                    para.paragraph_format.line_spacing = 1.0
                     for run in para.runs:
-                        run.font.size = Pt(9)
+                        run.font.size = Pt(cfg["table_size"])
 
     # 图片题注居中
     for para in doc.paragraphs:
@@ -190,9 +213,9 @@ def main() -> None:
         title = doc.paragraphs[0]
         title.alignment = WD_ALIGN_PARAGRAPH.CENTER
         title.paragraph_format.space_before = Pt(0)
-        title.paragraph_format.space_after = Pt(20)
+        title.paragraph_format.space_after = Pt(10 if args.compact else 20)
         for run in title.runs:
-            run.font.size = Pt(18)
+            run.font.size = Pt(cfg["heads"]["Heading 1"] + 1)
 
     add_page_number_footer(section)
 
