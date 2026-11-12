@@ -1,0 +1,11 @@
+# 数据集与训练产物不入库
+data/
+runs/*/best.pt
+
+# Python
+__pycache__/
+*.pyc
+
+# 本地环境
+.claude/
+.vscode/

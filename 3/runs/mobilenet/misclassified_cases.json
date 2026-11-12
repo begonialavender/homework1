@@ -1,0 +1,62 @@
+[
+  {
+    "index": 21,
+    "true": "bird",
+    "pred": "cat",
+    "confidence": 0.9712210297584534
+  },
+  {
+    "index": 2409,
+    "true": "ship",
+    "pred": "cat",
+    "confidence": 0.9621299505233765
+  },
+  {
+    "index": 1208,
+    "true": "frog",
+    "pred": "airplane",
+    "confidence": 0.9611820578575134
+  },
+  {
+    "index": 2226,
+    "true": "truck",
+    "pred": "cat",
+    "confidence": 0.9607316255569458
+  },
+  {
+    "index": 194,
+    "true": "dog",
+    "pred": "cat",
+    "confidence": 0.958783745765686
+  },
+  {
+    "index": 656,
+    "true": "automobile",
+    "pred": "cat",
+    "confidence": 0.9559865593910217
+  },
+  {
+    "index": 6175,
+    "true": "dog",
+    "pred": "cat",
+    "confidence": 0.9526294469833374
+  },
+  {
+    "index": 3181,
+    "true": "dog",
+    "pred": "cat",
+    "confidence": 0.9519056081771851
+  },
+  {
+    "index": 1026,
+    "true": "frog",
+    "pred": "cat",
+    "confidence": 0.9515939354896545
+  },
+  {
+    "index": 1419,
+    "true": "frog",
+    "pred": "cat",
+    "confidence": 0.9495019912719727
+  }
+]
